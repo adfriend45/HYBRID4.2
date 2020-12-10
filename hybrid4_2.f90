@@ -83,7 +83,7 @@ if (lat_w == 68.25) open (20,file='grudd.clm',status='unknown')
 
 !---------------------------------------------------------------------------------------------------------------------------------------!
 syr = 1901
-eyr = 2019
+eyr = 1911
 !---------------------------------------------------------------------------------------------------------------------------------------!
 
 !---------------------------------------------------------------------------------------------------------------------------------------!
@@ -94,10 +94,10 @@ do kyr = syr, eyr
  !--------------------------------------------------------------------------------------------------------------------------------------!
 
  !--------------------------------------------------------------------------------------------------------------------------------------!
- ! Read global temperature fields for year kyr into tmp (K).
+ ! Read global temperature fields for year kyr into tmp (K). EDIT : filename changed to jhj34?
  !--------------------------------------------------------------------------------------------------------------------------------------!
  var_name = 'tmp'
- file_name = '/rds/user/adf10/rds-mb425-geogscratch/adf10/FORCINGS/&
+ file_name = '/rds/user/jhj34/rds-mb425-geogscratch/adf10/FORCINGS/&
  &CRUJRA_2.1/CRUJRA2020/'//TRIM(var_name)//'/crujra.v2.1.5d.'&
  &//TRIM(var_name)//'.'//char_year//'.365d.noc.nc'
  write (*,*) 'Reading from ',trim(file_name)
@@ -117,7 +117,7 @@ do kyr = syr, eyr
  ! Read precipitation fields for year kyr intp pre (mm 6hr-1.
  !--------------------------------------------------------------------------------------------------------------------------------------!
  var_name = 'pre'
- file_name = '/rds/user/adf10/rds-mb425-geogscratch/adf10/FORCINGS/&
+ file_name = '/rds/user/jhj34/rds-mb425-geogscratch/adf10/FORCINGS/&
  &CRUJRA_2.1/CRUJRA2020/'//TRIM(var_name)//'/crujra.v2.1.5d.'&
  &//TRIM(var_name)//'.'//char_year//'.365d.noc.nc'
  write (*,*) 'Reading from ',trim(file_name)
@@ -130,7 +130,7 @@ do kyr = syr, eyr
  ! Read specific humidity fields for year kyr intp spfh (kg kg-1).
  !--------------------------------------------------------------------------------------------------------------------------------------!
  var_name = 'spfh'
- file_name = '/rds/user/adf10/rds-mb425-geogscratch/adf10/FORCINGS/&
+ file_name = '/rds/user/jhj34/rds-mb425-geogscratch/adf10/FORCINGS/&
  &CRUJRA_2.1/CRUJRA2020/'//TRIM(var_name)//'/crujra.v2.1.5d.'&
  &//TRIM(var_name)//'.'//char_year//'.365d.noc.nc'
  write (*,*) 'Reading from ',trim(file_name)
@@ -143,7 +143,7 @@ do kyr = syr, eyr
  ! Read pressure fields for year kyr intp pres (Pa).
  !--------------------------------------------------------------------------------------------------------------------------------------!
  var_name = 'pres'
- file_name = '/rds/user/adf10/rds-mb425-geogscratch/adf10/FORCINGS/&
+ file_name = '/rds/user/jhj34/rds-mb425-geogscratch/adf10/FORCINGS/&
  &CRUJRA_2.1/CRUJRA2020/'//TRIM(var_name)//'/crujra.v2.1.5d.'&
  &//TRIM(var_name)//'.'//char_year//'.365d.noc.nc'
  write (*,*) 'Reading from ',trim(file_name)
@@ -153,7 +153,7 @@ do kyr = syr, eyr
  call check (nf90_get_var (ncid, varid, pres))
  call check (nf90_close (ncid))
  !--------------------------------------------------------------------------------------------------------------------------------------!
- 
+
  !--------------------------------------------------------------------------------------------------------------------------------------!
  ! Climate output if needed.
  do it = 1, ntimes
@@ -192,15 +192,15 @@ do kyr = syr, eyr
      else
       isc = 10.8 - 1.6 * eo / pt
      end if ! eo / pt
-     !write(*,*)lat(j),pt,eo,isc
+     write(*,*)lat(j),pt,eo,isc
     end if ! fillvalue
    end do ! i
   end do ! j
  end if ! kyr == syr
- 
+
  !--------------------------------------------------------------------------------------------------------------------------------------!
  ! Loop through gridboxes and integrate state variables at land points.
- ! Climate files start at 
+ ! Climate files start at
  !--------------------------------------------------------------------------------------------------------------------------------------!
  nland = 0
  do i = 1, nlon
